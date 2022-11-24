@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 const Character = ({ name, url }) => {
   const router = useRouter();
-  const id = url.slice(29).split('/').shift();
+  const id = url.substring(29).replace('/', '');
 
   return (
     <button

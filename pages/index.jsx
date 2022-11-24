@@ -17,7 +17,7 @@ const Home = ({ people, hasNext, hasPrevious, error }) => {
       try {
         setIsloading(true);
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_DB_URL}people/?page=${page}`
+          `${process.env.NEXT_PUBLIC_SWAPI_URL}people/?page=${page}`
         );
         const data = await response.json();
         setCharacters(data.results);
@@ -77,7 +77,7 @@ const Home = ({ people, hasNext, hasPrevious, error }) => {
 };
 
 export async function getServerSideProps() {
-  const BASE_URL = process.env.NEXT_DB_URL;
+  const BASE_URL = process.env.SWAPI_URL;
   try {
     const response = await fetch(`${BASE_URL}people/?page=1`);
     const data = await response.json();
