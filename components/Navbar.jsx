@@ -1,16 +1,32 @@
 import Image from 'next/image';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFilter } from '../slices/filter_slice';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
+  const value = useSelector((state) => state.filter.value);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleChange = (evt) => {
+    dispatch(setFilter(evt.target.value));
+  };
+
   return (
     <nav className='mx-auto flex max-w-6xl bg-slate-200 rounded-lg justify-between px-4 py-4 mt-4 items-center shadow-2xl'>
-      <div className='flex justify-center items-center'>
+      <button
+        className='flex justify-center items-center'
+        onClick={() => router.push('/')}
+      >
         <Image src='/Darth-Vader.png' alt='logo' width={40} height={40} />
         <span className='ml-4 font-bold text-xl'>SWAPI</span>
-      </div>
+      </button>
       <div className='flex justify-center items-center'>
         <div className='xl:w-96'>
           <div className='input-group relative flex w-full rounded'>
             <input
+              value={value}
+              onChange={handleChange}
               type='search'
               className='form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
               placeholder='Search'

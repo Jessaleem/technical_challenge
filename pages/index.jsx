@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Spinner from '../components/Spinner';
 import Character from '../components/Character';
+import { useSelector } from 'react-redux';
 
 const Home = ({ people, hasNext, hasPrevious, error }) => {
   const [page, setPage] = useState(1);
@@ -9,6 +10,7 @@ const Home = ({ people, hasNext, hasPrevious, error }) => {
   const [previous, setPrevious] = useState(hasPrevious);
   const [isloading, setIsloading] = useState(false);
   const [readError, setReadError] = useState(error);
+  const value = useSelector((state) => state.filter.value);
 
   useEffect(() => {
     (async () => {
@@ -28,7 +30,13 @@ const Home = ({ people, hasNext, hasPrevious, error }) => {
       }
     })();
   }, [page]);
-  console.log(readError);
+
+  const filtered = useMemo(() => {
+    return characters.filter((character) => {
+      return character.name.toLowerCase().includes(value.toLowerCase());
+    });
+  }, [value, characters]);
+
   if (readError) {
     return <div> No hay datos</div>;
   }
@@ -37,8 +45,14 @@ const Home = ({ people, hasNext, hasPrevious, error }) => {
   return (
     <div className='flex items-center flex-col py-6 mb-14'>
       <div className='flex justify-around mx-auto flex-wrap max-w-5xl'>
-        {characters.map((character) => {
-          return <Character key={character.name} name={character.name} />;
+        {filtered.map((character) => {
+          return (
+            <Character
+              key={character.name}
+              name={character.name}
+              url={character.url}
+            />
+          );
         })}
       </div>
       <div className='flex justify-between bg-slate-200 rounded-xl p-4 mt-6'>

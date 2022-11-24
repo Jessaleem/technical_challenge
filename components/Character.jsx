@@ -1,10 +1,16 @@
-import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-const Character = ({ name }) => {
+const Character = ({ name, url }) => {
+  const router = useRouter();
+  const id = url.slice(29).split('/').shift();
+
   return (
-    <button class='flex justify-center m-2'>
-      <div class='block p-6 rounded-lg shadow-lg bg-white max-w-sm w-96'>
-        <p class='text-gray-900 text-xl leading-tight font-medium mb-2'>
+    <button
+      onClick={() => router.push(`/character/${id}`)}
+      className='flex justify-center m-2'
+    >
+      <div className='block p-6 rounded-lg shadow-lg bg-white max-w-sm w-96'>
+        <p className='text-gray-900 text-xl leading-tight font-medium mb-2'>
           {name}
         </p>
       </div>
