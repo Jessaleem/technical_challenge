@@ -4,8 +4,8 @@ const CharacterDetail = ({ character, error }) => {
   if (error) return <p>Character not found!</p>;
 
   return (
-    <section className='max-w-5xl mx-auto p-8'>
-      <CharacterCard character={character} />;
+    <section className='flex justify-between max-w-5xl mx-auto p-16'>
+      <CharacterCard character={character} />
     </section>
   );
 };
