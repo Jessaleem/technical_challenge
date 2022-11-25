@@ -18,13 +18,13 @@ const CharacterCard = ({ character }) => {
           <li>Gender: {character.gender}</li>
         </ul>
       </Card>
-      <Card title='Filmes' footer='Star Wars Episodes'>
+      <Card title='Films' footer='Star Wars Episodes'>
         <ul className='border py-3 px-2 rounded-lg'>
           {character.films.map((film, index) => {
             const filmId = film.substring(28).replace('/', '');
             return (
               <li className='mb-4 border-b' key={film}>
-                <Link href={`/film/${filmId}`}>
+                <Link href={`/film/${filmId}?charId=${router.query.id}`}>
                   <a>Film {index + 1}</a>
                 </Link>
               </li>
