@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
+import Card from './Card';
+import Link from 'next/link';
 
 const CharacterCard = ({ character }) => {
   const router = useRouter();
   const planet = character.homeworld.substring(30).replace('/', '');
+
   return (
-    <div className='block rounded-lg shadow-lg bg-white w-96'>
-      <div className='py-3 px-6 border-b border-gray-300 text-center font-bold'>
-        {character.name}
-      </div>
-      <div className='p-6'>
+    <>
+      <Card title={character.name} planet={planet}>
         <ul>
           <li>Height: {character.height}</li>
           <li>Mass: {character.mass}</li>
@@ -17,17 +17,22 @@ const CharacterCard = ({ character }) => {
           <li>Birth Year: {character.birth_year}</li>
           <li>Gender: {character.gender}</li>
         </ul>
-      </div>
-      <div className='py-3 px-6 border-t border-gray-300 text-center'>
-        <button
-          onClick={() => router.push(`/planet/${planet}`)}
-          type='button'
-          className=' inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
-        >
-          Go to Planet
-        </button>
-      </div>
-    </div>
+      </Card>
+      <Card title='Films' footer='Star Wars Episodes'>
+        <ul className='border py-3 px-2 rounded-lg'>
+          {character.films.map((film, index) => {
+            const filmId = film.substring(28).replace('/', '');
+            return (
+              <li className='mb-4 border-b' key={film}>
+                <Link href={`/film/${filmId}?charId=${router.query.id}`}>
+                  <a>Film {index + 1}</a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Card>
+    </>
   );
 };
 

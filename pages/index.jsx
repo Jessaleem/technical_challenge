@@ -38,9 +38,16 @@ const Home = ({ people, hasNext, hasPrevious, error }) => {
   }, [value, characters]);
 
   if (readError) {
-    return <div> No hay datos</div>;
+    return (
+      <p className='flex justify-center items-center mt-10'> Not Found Data </p>
+    );
   }
   if (isloading) return <Spinner />;
+  if (!(filtered.length > 0)) {
+    return (
+      <p className='flex justify-center items-center mt-10'> No Results </p>
+    );
+  }
 
   return (
     <div className='flex items-center flex-col py-6 mb-14'>

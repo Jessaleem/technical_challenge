@@ -9,7 +9,7 @@ const Character = ({ name, url }) => {
       onClick={() => router.push(`/character/${id}`)}
       className='flex justify-center m-2'
     >
-      <div className='block p-6 rounded-lg shadow-lg bg-white max-w-sm w-96'>
+      <div className='block p-6 rounded-lg shadow-lg bg-white max-w-sm w-[20rem] md:w-96'>
         <p className='text-gray-900 text-xl leading-tight font-medium mb-2'>
           {name}
         </p>
